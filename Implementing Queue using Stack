@@ -1,0 +1,109 @@
+//First Method
+class MyQueue {
+public:
+    stack<int> st1;
+    stack<int> st2;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        while(!st1.empty()){
+            int data = st1.top();
+            st1.pop();
+            st2.push(data);
+        }
+
+        st1.push(x);
+
+         while(!st2.empty()){
+            int data = st2.top();
+            st2.pop();
+            st1.push(data);
+         }
+    }
+    
+    int pop() {
+        if(st1.empty()){
+            return -1;
+        }
+
+        int data = st1.top();
+        st1.pop();
+
+        return data;
+    }
+    
+    int peek() {
+        if(st1.empty()){
+            return -1;
+        }
+
+        return st1.top();
+    }
+    
+    bool empty() {
+        if(st1.empty()){
+            return true;
+        }
+
+        return false;
+    }
+};
+
+//Can you implement the queue such that each operation is amortized O(1) time complexity? 
+//In other words, performing n operations will take overall O(n) time even if one of those operations may take longer.
+
+//Is approach me ek Chij dhyan Rakhna hmesa ke hum pop or top hmesa stack 1 mese krenge isilye agar stack 1 empty hua to hme sbhi stack 2 me padhe elements ko stack 1 me dalna padega
+class MyQueue {
+public:
+   stack<int> st1 , st2;
+    MyQueue() {
+        
+    }
+    
+    void push(int x) {
+        st2.push(x);
+    }
+    
+    int pop() {
+        if(st1.empty()){
+
+            while(!st2.empty()){
+                int data = st2.top();
+                st2.pop();
+                st1.push(data);
+            }
+        }
+        
+        int data = st1.top();
+        st1.pop();
+            
+        return data;
+    }
+    
+    int peek() {
+        if(st1.empty()){
+
+            while(!st2.empty()){
+                int data = st2.top();
+                st2.pop();
+                st1.push(data);
+            }
+        }
+        
+        int data = st1.top();
+            
+        return data;
+    }
+    
+    bool empty() {
+        if(st1.empty() && st2.empty()){
+            return true;
+        }
+
+        return false;
+    }
+};
+
+
